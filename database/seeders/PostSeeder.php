@@ -19,10 +19,22 @@ class PostSeeder extends Seeder
 
         for ($i = 0; $i < 10; $i++) {
             $post = new Post();
-            $post->title = ?;
-            $post->slug = ?;
-            $post->content = ?;
+            $title = fake()->sentence();
+            $slug = Str::slug($title);
+            $post->title = $title;
+            $post->slug = $slug;
+            $post->content = fake()->paragraph();
             $post->save();
+
+            // OPPURE
+
+            $titleForMassAssignment = fake()->sentence();
+            $slugForMassAssignment = Str::slug($titleForMassAssignment);
+            $postWithMassAssignment = Post::create([
+                'title' => $titleForMassAssignment,
+                'slug' => $slugForMassAssignment,
+                'content' => fake()->paragraph(),
+            ]);
         }
     }
 }
